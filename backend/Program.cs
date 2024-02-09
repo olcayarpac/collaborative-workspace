@@ -1,6 +1,14 @@
+
+using CollabSpaceAPI.Application.Services;
+using CollabSpaceAPI.Domain.Configs;
+using CollabSpaceAPI.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
-// Add services to the container.
+builder.Services.Configure<DatabaseSettings>(
+    builder.Configuration.GetSection("CollabSpaceDatabase"));
+builder.Services.AddSingleton<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

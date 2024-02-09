@@ -13,7 +13,7 @@ const LoginForm = ({ onSubmit, onSwitch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div >
       <h2>Login</h2>
       <input
         className="input-field"
@@ -30,22 +30,22 @@ const LoginForm = ({ onSubmit, onSwitch }) => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={() => onSwitch(false)}>Don't have account</button>
-      <button className="button" type="submit">Login</button>
-    </form>
+      <button className="button" type="submit" onClick={handleSubmit}>Login</button>
+    </div>
   );
 };
 
-const SignupForm = ({ onSubmit, onSwitch }) => {
+const SignupForm = ({ onSwitch }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({ email, password });
+    
+    
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div onSubmit={handleSubmit}>
       <h2>Signup</h2>
       <input
         className="input-field"
@@ -62,23 +62,13 @@ const SignupForm = ({ onSubmit, onSwitch }) => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={() => onSwitch(true)}>Already have account</button>
-      <button className="button" type="submit">Signup</button>
-    </form>
+      <button className="button" type="submit" onClick={handleSubmit}>Signup</button>
+    </div>
   );
 };
 
 const AuthPage = () => {
   const [showLogin, setShowLogin] = useState(true);
-
-  const handleLogin = (data) => {
-    console.log('Logging in with:', data);
-    // Implement login logic here
-  };
-
-  const handleSignup = (data) => {
-    console.log('Signing up with:', data);
-    // Implement signup logic here
-  };
 
   const handleSwitch = (showLogin) => {
     setShowLogin(showLogin);
@@ -88,9 +78,9 @@ const AuthPage = () => {
     <div className="container">
       <div className="form-container">
         {showLogin ? (
-          <LoginForm onSubmit={handleLogin} onSwitch={handleSwitch} />
+          <LoginForm onSwitch={handleSwitch} />
         ) : (
-          <SignupForm onSubmit={handleSignup} onSwitch={handleSwitch} />
+          <SignupForm onSwitch={handleSwitch} />
         )}
       </div>
     </div>
