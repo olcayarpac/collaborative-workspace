@@ -1,0 +1,6 @@
+1- kullanıcı websitesine girdiginde once login kontrolu
+2- cerezler kullanılacak
+3- token kullanılacak
+4- kullanıcı giris yapmıs ise goruntuleyebilecegi workspaceler liste halinde karşısına çıkacak
+5- kullanıcı bir workspace içerisine girmeye çalıştığında önce izni olup olmadığı kontrol edilecek
+6- izni var ise girebilecek
