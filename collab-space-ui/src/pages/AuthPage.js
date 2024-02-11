@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import '../styles/AuthPage.css';
 import {
-  RouterProvider,
-  createBrowserRouter,
   redirect
 } from "react-router-dom";
+
+const apiUrl = 'http://localhost:5152';
 
 const LoginForm = ({ onSubmit, onSwitch }) => {
   const [email, setEmail] = useState('');
@@ -68,26 +68,31 @@ const SignupForm = ({ onSwitch }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('email', email);
-    formData.append('password', password);
+    const singupData = {
+      email: email,
+      passwordHash: password
+    };
 
     try {
-      const response = await fetch(apiUrl + '/signup', {
+      const response = await fetch(apiUrl + '/account/signup', {
         method: 'POST',
-        body: formData
+        body: JSON.stringify(singupData),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
       });
 
       if (response.ok) {
         // Request was successful, handle success
-        redirect("/homepage");
         console.log('Signup successful');
+        return redirect("/homepage");
       } else {
         // Request failed, handle error
-        console.error('Signup failed');
+        console.error('Signup failed', response);
       }
     } catch (error) {
-      console.error('Error occurred:', error);
+      console.error('Error occurred singup:', error);
     }
   };
 
