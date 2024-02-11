@@ -2,14 +2,40 @@
 
 import React, { useState } from 'react';
 import '../styles/AuthPage.css';
+import {
+  RouterProvider,
+  createBrowserRouter,
+  redirect
+} from "react-router-dom";
 
 const LoginForm = ({ onSubmit, onSwitch }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit({ email, password });
+
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+
+    try {
+      const response = await fetch(apiUrl + '/login', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        // Request was successful, handle success
+        redirect("/homepage");
+        console.log('Login successful');
+      } else {
+        // Request failed, handle error
+        console.error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error occurred:', error);
+    }
   };
 
   return (
@@ -39,10 +65,32 @@ const SignupForm = ({ onSwitch }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
-    
-    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+
+    try {
+      const response = await fetch(apiUrl + '/signup', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        // Request was successful, handle success
+        redirect("/homepage");
+        console.log('Signup successful');
+      } else {
+        // Request failed, handle error
+        console.error('Signup failed');
+      }
+    } catch (error) {
+      console.error('Error occurred:', error);
+    }
   };
+
 
   return (
     <div onSubmit={handleSubmit}>
